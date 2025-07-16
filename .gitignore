@@ -210,4 +210,10 @@ __marimo__/
 .venv/
 # data
 data/
+processed_data/
+
+# Ignorer seulement certains fichiers dans experiment/
+Experiment/mlruns/
+Experiment/mlflow.db
+Experiment/processed_data/
 
