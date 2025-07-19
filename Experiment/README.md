@@ -1,47 +1,72 @@
-# Prédiction de la Gravité des Accidents de la Route à Chicago - Projet MLOps
+# Suivi et Optimisation des Modèles avec MLflow et Optuna (Expérimentation)
 
-Ce projet MLOps a pour objectif de prédire si un accident de la circulation à Chicago sera :
+Cette section fait partie du projet principal de prédiction de la gravité des accidents à Chicago. Elle est consacrée à l'expérimentation, au suivi d'expériences et à l'optimisation des modèles grâce à **MLflow** et **Optuna**.
 
-- **Sans gravité** : aucun blessé **et** aucun remorquage
-- **Grave** : au moins un blessé **ou** un véhicule remorqué
+Le travail est réalisé dans le notebook `experimentation.ipynb`, qui comprend deux grandes étapes :
 
-L'approche repose sur un modèle de classification supervisée, et l'ensemble du pipeline suit les bonnes pratiques de l'ingénierie MLOps, notamment en matière de :
-
-- Suivi d’expériences avec **MLflow**
-- Optimisation d’hyperparamètres avec **Optuna**
-- Séparation claire des données d’entraînement et de validation
-- Journalisation des métriques, paramètres, et artefacts pour chaque expérience
-
-Ce projet s'inspire de l'approche présentée dans le **MLOps Zoomcamp (DataTalksClub)**, en particulier la partie `02-experiment-tracking`.
-
+- Entraînement d'un modèle **baseline** (Random Forest sans recherche d'hyperparamètres)
+- Optimisation des hyperparamètres du modèle avec **Optuna**, tout en suivant les expériences avec MLflow
 
 ---
 
-## Structure du projet
+## 📊 Suivi du Modèle Baseline avec MLflow
 
-- `processed_data/` : dossiers contenant les données préparées (`X_prepared.csv` et `y_prepared.csv`)  
-- `experimentation.ipynb` : script principal pour entraîner les modèles (baseline et optimisation hyperparamètres)  
-- `mlflow.db` : base de données SQLite utilisée pour le tracking MLflow  
-- `requirements.txt` : liste des dépendances Python  
-- `README.md` : ce fichier
+Un modèle Random Forest a été entraîné avec des paramètres par défaut. L'ensemble du run est journalisé via MLflow.
 
----
+- Paramètres : `n_estimators=100`, `max_depth=None`, etc.
+- Métriques : `accuracy`, `f1-score`, `roc_auc`
+- Artefacts : modèle, signature, exemple d'entrée
 
-## Fonctionnalités
+### Interface MLflow du modèle de base
 
-- Chargement et préparation des données  
-- Entraînement d’un modèle baseline (RandomForest)  
-- Optimisation d’hyperparamètres avec Optuna  
-- Evaluation avec plusieurs métriques (accuracy, F1-score, ROC-AUC)  
-- Tracking complet des runs avec MLflow (params, metrics, artefacts, tags)  
-- Visualisation des résultats d’optimisation (courbes Optuna)  
-- Sauvegarde et test du modèle enregistré
+![Interface MLflow - Modèle baseline](images/interface.jpg)
+
+### Aperçu du modèle enregistré
+
+![Modèle enregistré - baseline](images/baseline_overview.jpg)
 
 ---
 
-## Instructions d’utilisation
+## 🚀 Optimisation avec Optuna + Tracking avancé (nested runs)
 
-1. **Installer les dépendances** :
+Une recherche d'hyperparamètres a été réalisée avec **Optuna** en maximisant l'accuracy sur l'ensemble de validation. Chaque essai est enregistré comme un run imbriqué (nested=True) dans MLflow.
 
-```bash
-pip install -r requirements.txt
+- Paramètres optimisés : `n_estimators`, `max_depth`, `min_samples_split`, `min_samples_leaf`, `class_weight`
+- Suivi de chaque run avec `mlflow.start_run(nested=True)`
+- Journalisation du meilleur modèle dans MLflow
+
+### Aperçu du modèle optimisé
+
+![Modèle Optuna](images/apercu_modele.jpg)
+
+### Métriques du modèle optimisé
+
+![Métriques](images/metricmodele.jpg)
+
+### Artefacts enregistrés
+
+![Artefacts](images/modelartefact.jpg)
+
+---
+
+## 📖 Notes techniques
+
+- L'ensemble des expériences est exécuté en local avec MLflow et une base SQLite (`mlflow.db`)
+- Les modèles sont stockés dans le dossier `mlruns/`
+- Le run principal est taggé `parameter_optimization`, chaque essai a son propre run imbriqué
+- Le meilleur modèle est logué avec signature et exemple d'entrée pour une future utilisation
+
+---
+
+## 📊 Exemple de rechargement et prédiction
+
+```python
+import mlflow.sklearn
+model_id = "m-4c3337fe6a64495fa161c6ef6bf21e4e"
+model_path = f"mlruns/1/models/{model_id}/artifacts"
+# Charger le modèle
+model = mlflow.sklearn.load_model(model_path)
+# Prédire
+y_pred = model.predict(X_train)
+# Afficher les 10 premières prédictions
+y_pred[:10]

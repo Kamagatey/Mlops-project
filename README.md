@@ -26,9 +26,9 @@ Projet en cours — première exploration en cours et pipeline en construction.
 ## ✅ Étapes du projet
 
 - [x] Définir le problème et le jeu de données
-- [ ] Explorer et nettoyer les données
-- [ ] Créer une cible binaire à partir de `CRASH_TYPE`
-- [ ] Entraîner un modèle de base
+- [x] Explorer et nettoyer les données
+- [x] Créer une cible binaire à partir de `CRASH_TYPE`
+- [x] Entraîner un modèle de base
 - [ ] Suivre les expériences avec MLflow
 - [ ] Construire un pipeline de formation
 - [ ] Déployer le modèle (batch/API)
