@@ -40,27 +40,29 @@ class FrequencyEncoder(BaseEstimator, TransformerMixin):
 # 3. Prétraitement
 def preprocess_data(df):
     selected_cols = [
-    'POSTED_SPEED_LIMIT', 'WEATHER_CONDITION', 'LIGHTING_CONDITION',
-    'FIRST_CRASH_TYPE', 'TRAFFICWAY_TYPE', 'ROADWAY_SURFACE_COND',
-    'PRIM_CONTRIBUTORY_CAUSE', 'CRASH_HOUR', 'CRASH_TYPE','delay_police_minutes'
+        'posted_speed_limit', 'weather_condition', 'lighting_condition',
+        'first_crash_type', 'trafficway_type', 'roadway_surface_cond',
+        'prim_contributory_cause', 'crash_hour', 'crash_type', 'delay_police_minutes'
     ]
-    
+
     # Conversion des colonnes de dates
-    df['CRASH_DATE'] = pd.to_datetime(df['CRASH_DATE'], errors='coerce')
-    df['DATE_POLICE_NOTIFIED']= pd.to_datetime(df['DATE_POLICE_NOTIFIED'], errors='coerce')
-    # Calcul du délai entre la date de l'_accident et la date à laquelle la police a été notifiée
-    df['delay_police_minutes'] = (df['DATE_POLICE_NOTIFIED'] - df['CRASH_DATE']).dt.total_seconds() / 60
+    df['crash_date'] = pd.to_datetime(df['crash_date'], errors='coerce')
+    df['date_police_notified'] = pd.to_datetime(df['date_police_notified'], errors='coerce')
+
+    # Calcul du délai entre la date de l'accident et la date à laquelle la police a été notifiée
+    df['delay_police_minutes'] = (df['date_police_notified'] - df['crash_date']).dt.total_seconds() / 60
 
     df = df[selected_cols].copy()
 
     # Cible
-    df["target"] = df["CRASH_TYPE"].apply(lambda x: 1 if x == 'INJURY AND / OR TOW DUE TO CRASH' else 0)
-    df.drop(columns=["CRASH_TYPE"], inplace=True)
+    df["target"] = df["crash_type"].apply(lambda x: 1 if x == 'INJURY AND / OR TOW DUE TO CRASH' else 0)
+    df.drop(columns=["crash_type"], inplace=True)
 
     # Colonnes
-    categorical_onehot = ['WEATHER_CONDITION', 'LIGHTING_CONDITION']
-    categorical_freq = ['FIRST_CRASH_TYPE', 'TRAFFICWAY_TYPE', 'ROADWAY_SURFACE_COND', 'PRIM_CONTRIBUTORY_CAUSE']
-    numeric_cols = ['POSTED_SPEED_LIMIT', 'CRASH_HOUR','delay_police_minutes']
+    categorical_onehot = ['weather_condition', 'lighting_condition']
+    categorical_freq = ['first_crash_type', 'trafficway_type', 'roadway_surface_cond', 'prim_contributory_cause']
+    numeric_cols = ['posted_speed_limit', 'crash_hour', 'delay_police_minutes']
+
 
     # Pipelines
     cat_ohe_pipeline = Pipeline(steps=[
@@ -92,15 +94,15 @@ def preprocess_data(df):
     return X_transformed, y, preprocessor
 
 # 4. Sauvegarde
-def save_data(X, y, preprocessor, output_dir='processed'):
+def save_data(X, y, preprocessor, output_dir='processed_data'):
     os.makedirs(output_dir, exist_ok=True)
     
     # Sauvegarde en .joblib
     joblib.dump(preprocessor, f"{output_dir}/preprocessor.joblib")
     
     # Sauvegarde en CSV pour visualisation (optionnelle)
-    pd.DataFrame(X).to_csv(f"{output_dir}/X.csv", index=False)
-    pd.DataFrame(y).to_csv(f"{output_dir}/y.csv", index=False)
+    pd.DataFrame(X).to_csv(f"{output_dir}/X_prepared.csv", index=False)
+    pd.DataFrame(y).to_csv(f"{output_dir}/y_prepared.csv", index=False)
     
     print("💾 Données et préprocesseur sauvegardés.")
 

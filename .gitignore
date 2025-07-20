@@ -217,3 +217,12 @@ Experiment/mlruns/
 Experiment/mlflow.db
 Experiment/processed_data/
 
+# Ignorer seulement les dossiers/fichiers dans Orchestration/
+Orchestration/__pycache__/
+Orchestration/.venv-prefect2/
+Orchestration/data/
+Orchestration/mlruns/
+Orchestration/processed_data/
+Orchestration/mlflow.db
+
+

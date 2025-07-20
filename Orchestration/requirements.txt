@@ -1,0 +1,8 @@
+prefect==2.14.21
+scikit-learn
+xgboost
+optuna
+mlflow
+joblib
+pandas
+numpy
