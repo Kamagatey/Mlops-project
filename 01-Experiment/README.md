@@ -1,3 +1,6 @@
+# 🚦 Prédiction de la gravité des accidents de la route à Chicago
+## 01-Expérimentation
+
 # Suivi et Optimisation des Modèles avec MLflow et Optuna (Expérimentation)
 
 Cette section fait partie du projet principal de prédiction de la gravité des accidents à Chicago. Elle est consacrée à l'expérimentation, au suivi d'expériences et à l'optimisation des modèles grâce à **MLflow** et **Optuna**.

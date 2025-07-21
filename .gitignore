@@ -213,16 +213,19 @@ data/
 processed_data/
 
 # Ignorer seulement certains fichiers dans experiment/
-Experiment/mlruns/
-Experiment/mlflow.db
-Experiment/processed_data/
+01-Experiment/mlruns/
+01-Experiment/mlflow.db
+01-Experiment/processed_data/
 
 # Ignorer seulement les dossiers/fichiers dans Orchestration/
-Orchestration/__pycache__/
-Orchestration/.venv-prefect2/
-Orchestration/data/
-Orchestration/mlruns/
-Orchestration/processed_data/
-Orchestration/mlflow.db
+02-Orchestration/__pycache__/
+02-Orchestration/.venv-prefect2/
+02-Orchestration/data/
+02-Orchestration/mlruns/
+02-Orchestration/processed_data/
+02-Orchestration/mlflow.db
+
+# Ignorer les de Deployment
+03-Deployment/.venv/
 
 

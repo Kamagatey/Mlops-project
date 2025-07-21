@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./app/model:/app/model"
+    depends_on:
+      localstack:
+        condition: service_healthy
+
+  localstack:
+    image: localstack/localstack
+    environment:
+      - SERVICES=s3
+      - PERSISTENCE=1
+    ports:
+      - "4566:4566"
+    volumes:
+      - "./localstack:/var/lib/localstack"

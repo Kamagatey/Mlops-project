@@ -1,4 +1,5 @@
-# 🚦 Chicago Traffic Crashes – Projet MLOps End-to-End
+# 🚦 Prédiction de la gravité des accidents de la route à Chicago
+## 02-Expérimentation
 
 Bienvenue dans ce projet MLOps complet basé sur les données d’accidents de la ville de **Chicago**.  
 Ce pipeline inclut : ingestion, prétraitement, entraînement automatique avec **MLflow**, et orchestration planifiée avec **Prefect** 🧠⚙️
