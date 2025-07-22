@@ -227,5 +227,6 @@ processed_data/
 
 # Ignorer les de Deployment
 03-Deployment/.venv/
+03-Deployment/app/model/model.pkl
 
 
