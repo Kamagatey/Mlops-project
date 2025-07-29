@@ -17,7 +17,7 @@ Il compare les **anciennes données (référence)** avec les **nouvelles donnée
 
 ## 🗂 Structure des fichiers
 
-```
+
 ```
 monitoring/
 ├── monitoring.ipynb                    # Notebook principal pour créer le rapport de drift
@@ -25,10 +25,10 @@ monitoring/
 │   ├── Traffic_Crashes.csv            # Données historiques (référence)
 │   └── new_data.csv                   # Données récentes (à surveiller)
 ├── report/
-│   └── drift_column_mapping1.html     # Rapport HTML généré par Evidently
+│   └── drift_column_mapping1.html  # Rapport
 ├── images/                   
 ├── requirements.txt
-└── README.md                          # Ce fichier
+└── README.md                          
 ```
 
 ---
