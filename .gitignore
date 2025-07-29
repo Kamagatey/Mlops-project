@@ -231,3 +231,7 @@ processed_data/
 
 
 03-Deployment/app/model/model.pkl
+
+05-Monitoring/.venv/
+05-Monitoring/__pycache__/
+05-Monitoring/data/
