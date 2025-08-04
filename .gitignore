@@ -231,7 +231,20 @@ processed_data/
 
 
 03-Deployment/app/model/model.pkl
+# ignorer les fichiers de monitoring
+04-Monitoring/.venv/
+04-Monitoring/__pycache__/
+04-Monitoring/data/
 
-05-Monitoring/.venv/
-05-Monitoring/__pycache__/
-05-Monitoring/data/
+# Ignorer les fichiers de best_pratices
+05-best_practices/.venv/
+05-best_practices/.pytest_cache/
+05-best_practices/data/
+05-best_practices/processed_data/
+05-best_practices/.vscode/
+05-best_practices/mlruns/
+05-best_practices/mlflow.db
+
+
+*.joblib
+*.csv

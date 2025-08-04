@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+scikit-learn = "*"
+joblib = "*"
+optuna = "*"
+mlflow = "*"
+prefect = "*"
+evidently = "*"
+
+[dev-packages]
+pytest = "*"
+black = "*"
+flake8 = "*"
+pre-commit = "*"
+
+[requires]
+python_version = "3.12"
+python_full_version = "3.12.3"
